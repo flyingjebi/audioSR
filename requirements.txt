@@ -1,0 +1,3 @@
+firebase-admin
+audiosr==0.0.5
+runpod
