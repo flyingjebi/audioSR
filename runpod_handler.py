@@ -16,7 +16,7 @@ from firebase_admin import firestore
 
 #load credential and authenticate firebase
 #cred=credentials.Certificate("./brainstorm-2dcc5-firebase-adminsdk-7hskt-73e0cf2f00.json")
-cred = credentials.Certificate("/audiogen_api/brainstorm-2dcc5-firebase-adminsdk-7hskt-73e0cf2f00.json")
+cred = credentials.Certificate("/audiosr/brainstorm-2dcc5-firebase-adminsdk-7hskt-73e0cf2f00.json")
 bucket_name="brainstorm-2dcc5.appspot.com"
 if not firebase_admin._apps:
   firebase_admin.initialize_app(cred, {
@@ -30,12 +30,9 @@ def upload_audio_to_firebase(audio_data):
     #create audio_id
     audio_id=str(uuid.uuid4())
     #audio_data: torchTensor
-    print(audio_data.size())
-    audio_data=audio_data.reshape(-1)
-    audio_data_array=audio_data.detach().cpu().numpy()
+    out_wav = (audio_data[0] * 32767).astype(np.int16).T
     buffer=io.BytesIO()
     # Save the audio_data to the file object
-    out_wav = (audio_data_array[0] * 32767).astype(np.int16).T
     sf.write(buffer, out_wav, 48000, format='WAV')  
     blob = bucket.blob('generated_from_video/{:s}'.format(audio_id))
     buffer.seek(0)  # Reset the file pointer to the beginning
