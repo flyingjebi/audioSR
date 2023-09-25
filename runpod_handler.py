@@ -16,7 +16,7 @@ from firebase_admin import firestore
 
 #load credential and authenticate firebase
 #cred=credentials.Certificate("./brainstorm-2dcc5-firebase-adminsdk-7hskt-73e0cf2f00.json")
-cred = credentials.Certificate("/audiosr/brainstorm-2dcc5-firebase-adminsdk-7hskt-73e0cf2f00.json")
+cred = credentials.Certificate("./brainstorm-2dcc5-firebase-adminsdk-7hskt-73e0cf2f00.json")
 bucket_name="brainstorm-2dcc5.appspot.com"
 if not firebase_admin._apps:
   firebase_admin.initialize_app(cred, {
